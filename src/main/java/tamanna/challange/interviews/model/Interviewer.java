@@ -11,6 +11,6 @@ public class Interviewer extends Person{
     @GeneratedValue
     private Integer id;
 
-    @OneToMany
-    private List<Slot> availableSlots;
+    @ManyToOne
+    private Slot slot;
 }
