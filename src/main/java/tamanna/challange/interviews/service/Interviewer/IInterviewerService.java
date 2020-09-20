@@ -10,7 +10,11 @@ public interface IInterviewerService {
 
     List<Interviewer> getAll();
 
-    Optional<Interviewer> getById(Integer interviewerId);
+    Optional<Interviewer> getInterviewerById(Integer interviewerId);
 
-    List<Slot>getAvailableSlots(Interviewer interviewer);
+    List<Slot>getAvailableSlots(Integer interviewerId);
+
+    void insertInterviewer(Interviewer interviewers);
+
+    void setInterviewerSlot(Integer interviewerId);
 }

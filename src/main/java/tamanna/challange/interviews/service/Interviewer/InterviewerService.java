@@ -21,12 +21,23 @@ public class InterviewerService implements IInterviewerService{
     }
 
     @Override
-    public Optional<Interviewer> getById(Integer interviewerId) {
-        return interviewerRepository.getById(interviewerId);
+    public Optional<Interviewer> getInterviewerById(Integer interviewerId) {
+        return interviewerRepository.findById(interviewerId);
     }
 
     @Override
-    public List<Slot> getAvailableSlots(Interviewer interviewer) {
-        return interviewerRepository.getSlotsByInterviewer(interviewer);
+    public void insertInterviewer(Interviewer interviewer) {
+    interviewerRepository.save(interviewer);
     }
+
+    @Override
+    public void setInterviewerSlot(Integer interviewerId) {
+        interviewerRepository.setInterviewerSlot(interviewerId);
+    }
+
+    @Override
+    public List<Slot> getAvailableSlots(Integer interviewerId) {
+        return interviewerRepository.getAvailableSlotsByInterviewer(interviewerId);
+    }
+
 }

@@ -13,9 +13,7 @@ public interface InterviewerRepository extends JpaRepository<Interviewer,Integer
     @Override
     public List<Interviewer> findAll() ;
 
-    public Optional<Interviewer> getById(Integer integer) ;
+    List<Slot> getAvailableSlotsByInterviewer(Integer interviewerId);
 
-    public List<Slot> getSlotsByInterviewer(Interviewer interviewer) ;
-
-
+    void setInterviewerSlot(Integer interviewerId);
 }
