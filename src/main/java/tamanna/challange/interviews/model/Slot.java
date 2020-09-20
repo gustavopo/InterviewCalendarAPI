@@ -7,7 +7,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
+@Entity
 public class Slot {
+    @Id
+    @GeneratedValue
+    private Integer slotId;
 
     private LocalDate day;
     private LocalDateTime time;
@@ -15,5 +19,6 @@ public class Slot {
     @OneToMany(mappedBy = "slot")
     private List<Interviewer> interviewer;
 
+    @ManyToOne
     private Candidate candidate;
 }

@@ -12,5 +12,6 @@ public class Candidate extends Person{
     @GeneratedValue
     private Integer id;
 
+    @OneToMany(mappedBy = "candidate")
     private List<Slot> requestedSlots;
 }
