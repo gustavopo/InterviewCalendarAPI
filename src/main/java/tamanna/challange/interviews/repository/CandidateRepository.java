@@ -16,4 +16,5 @@ public interface CandidateRepository extends JpaRepository<Candidate,Integer> {
 
     public Optional<Candidate> getById(Integer integer) ;
 
+    //void getCandidateRequestSlot(Integer candidateId);
 }

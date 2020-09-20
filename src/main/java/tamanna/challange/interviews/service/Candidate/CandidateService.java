@@ -24,7 +24,18 @@ public class CandidateService implements ICandidateService {
     }
 
     @Override
-    public Optional<Candidate> getById(Integer candidateId) {
-        return candidateRepository.getById(candidateId);
+    public Optional<Candidate> getCandidateById(Integer candidateId) {
+        return candidateRepository.findById(candidateId);
     }
+
+    @Override
+    public void insertCandidates(Candidate candidate) {
+        candidateRepository.save(candidate);
+    }
+
+    /*@Override
+    public void getCandidateRequestSlot(Integer candidateId) {
+        candidateRepository.getCandidateRequestSlot(candidateId);
+    }*/
+
 }

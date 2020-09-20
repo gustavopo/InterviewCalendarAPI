@@ -7,6 +7,9 @@ import java.util.Optional;
 public interface ICandidateService {
     List<Candidate> getAll();
 
-    Optional<Candidate> getById(Integer candidateId);
+    Optional<Candidate> getCandidateById(Integer candidateId);
 
+    void insertCandidates(Candidate candidates);
+
+    //void getCandidateRequestSlot(Integer candidateId);
 }
