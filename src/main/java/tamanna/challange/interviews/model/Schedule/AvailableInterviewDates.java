@@ -1,4 +1,4 @@
-package tamanna.challange.interviews.model;
+package tamanna.challange.interviews.model.Schedule;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

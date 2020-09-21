@@ -3,7 +3,7 @@ package tamanna.challange.interviews.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import tamanna.challange.interviews.model.AvailableInterviewDates;
+import tamanna.challange.interviews.model.Schedule.AvailableInterviewDates;
 import tamanna.challange.interviews.model.Person.Interviewer;
 import tamanna.challange.interviews.service.Interviewer.IInterviewerService;
 

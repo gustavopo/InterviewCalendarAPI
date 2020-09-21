@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tamanna.challange.interviews.exception.EntityNotFoundException;
 import tamanna.challange.interviews.exception.NotValidDateTimeSlotException;
-import tamanna.challange.interviews.model.AvailableInterviewDates;
+import tamanna.challange.interviews.model.Schedule.AvailableInterviewDates;
 import tamanna.challange.interviews.model.Person.Interviewer;
 import tamanna.challange.interviews.repository.AvailableInterviewDatesRepository;
 import tamanna.challange.interviews.repository.InterviewerRepository;

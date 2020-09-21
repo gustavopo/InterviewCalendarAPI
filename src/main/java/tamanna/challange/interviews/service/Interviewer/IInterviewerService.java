@@ -1,6 +1,6 @@
 package tamanna.challange.interviews.service.Interviewer;
 
-import tamanna.challange.interviews.model.AvailableInterviewDates;
+import tamanna.challange.interviews.model.Schedule.AvailableInterviewDates;
 import tamanna.challange.interviews.model.Person.Interviewer;
 
 import java.time.LocalDateTime;
