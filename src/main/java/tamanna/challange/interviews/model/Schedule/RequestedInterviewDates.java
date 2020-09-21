@@ -5,16 +5,13 @@ import lombok.Generated;
 import tamanna.challange.interviews.model.Person.Candidate;
 import tamanna.challange.interviews.model.Person.Interviewer;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 @Entity
 @Data
 public class RequestedInterviewDates {
     @Id
-    @Generated
+    @GeneratedValue
     private int id;
 
     @ManyToOne
