@@ -1,13 +1,11 @@
 package tamanna.challange.interviews.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Generated;
 import tamanna.challange.interviews.model.Person.Interviewer;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -15,12 +13,14 @@ import java.time.LocalDateTime;
 public class AvailableInterviewDates {
 
     @Id
-    @Generated
+    @GeneratedValue
     private int id;
 
     @ManyToOne
     @JoinColumn(name="interviewer_id")
+    @JsonIgnore
     private Interviewer interviewer;
 
     private LocalDateTime availableDate;
+
 }
