@@ -1,10 +1,10 @@
 package tamanna.challange.interviews.model;
 import lombok.Data;
+import tamanna.challange.interviews.model.Person.Candidate;
+import tamanna.challange.interviews.model.Person.Interviewer;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Entity
@@ -13,11 +13,10 @@ public class Slot {
     @GeneratedValue
     private Integer slotId;
 
-    private LocalDate day;
-    private LocalDateTime time;
+    private LocalDateTime interviewDate;
 
-    @OneToMany(mappedBy = "slot")
-    private List<Interviewer> interviewer;
+    @ManyToOne
+    private Interviewer interviewer;
 
     @ManyToOne
     private Candidate candidate;

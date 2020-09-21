@@ -1,4 +1,4 @@
-package tamanna.challange.interviews.model;
+package tamanna.challange.interviews.model.Person;
 
 import lombok.Data;
 
