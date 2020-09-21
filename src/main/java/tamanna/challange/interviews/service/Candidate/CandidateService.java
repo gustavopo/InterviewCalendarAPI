@@ -5,11 +5,17 @@ import org.springframework.stereotype.Service;
 import tamanna.challange.interviews.exception.EntityNotFoundException;
 import tamanna.challange.interviews.exception.NotValidDateTimeSlotException;
 import tamanna.challange.interviews.model.Person.Candidate;
+import tamanna.challange.interviews.model.Person.Interviewer;
+import tamanna.challange.interviews.model.Schedule.AvailableInterviewDates;
 import tamanna.challange.interviews.model.Schedule.RequestedInterviewDates;
+import tamanna.challange.interviews.model.Slot;
+import tamanna.challange.interviews.repository.AvailableInterviewDatesRepository;
 import tamanna.challange.interviews.repository.CandidateRepository;
 import tamanna.challange.interviews.repository.RequestedInterviewDatesRepository;
+import tamanna.challange.interviews.repository.SlotRepository;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +27,11 @@ public class CandidateService implements ICandidateService {
 
     @Autowired
     private RequestedInterviewDatesRepository requestedInterviewDatesRepository;
+
+    @Autowired
+    private AvailableInterviewDatesRepository availableInterviewDatesRepository;
+    @Autowired
+    private SlotRepository slotRepository;
 
     @Override
     public List<Candidate> getAll() {
@@ -65,6 +76,34 @@ public class CandidateService implements ICandidateService {
 
     public List<RequestedInterviewDates> getRequestedDatesByCandidate(Integer candidateId) {
         return requestedInterviewDatesRepository.getRequestedDatesByCandidate(candidateId);
+    }
+
+    @Override
+    public void scheduleInterviewForCandidate(Integer candidateId) {
+        Candidate candidate=getCandidateById(candidateId).get();
+        List<RequestedInterviewDates> requestedInterviewDatesList =getRequestedDatesByCandidate(candidateId);
+
+        List<AvailableInterviewDates> availableDatesBetween= new LinkedList<>();
+
+        for (RequestedInterviewDates requestedInterview : requestedInterviewDatesList) {
+            availableDatesBetween.addAll(availableInterviewDatesRepository.checkAvailabilityForDate(requestedInterview.getRequestedDate()));
+        }
+
+        if(!availableDatesBetween.isEmpty())
+        {
+            //create slot with first interviewer found
+            AvailableInterviewDates a = availableDatesBetween.get(0);
+            Interviewer interviewer = a.getInterviewer();
+            Slot interviewSlot=new Slot();
+            interviewSlot.setCandidate(candidate);
+            interviewSlot.setInterviewDate(a.getAvailableDate());
+            interviewSlot.setInterviewer(interviewer);
+            slotRepository.save(interviewSlot);
+
+        }/*else{
+            throw new EntityNotFoundException("No compatible dates were found to schedule interview for candidate " + candidateId);
+        }*/
+
     }
 
 }

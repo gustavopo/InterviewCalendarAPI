@@ -48,5 +48,10 @@ public class CandidateController {
         return iCandidateService.getRequestedDatesByCandidate(candidateId);
     }
 
+    @PostMapping("/api/candidates/{candidateId}/scheduleInterview")
+    public void scheduleInterviewForCandidate (@PathVariable(name="candidateId") Integer candidateId){
+        iCandidateService.scheduleInterviewForCandidate(candidateId);
+    }
+
 
 }

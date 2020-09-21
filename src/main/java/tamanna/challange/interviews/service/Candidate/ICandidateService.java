@@ -17,4 +17,6 @@ public interface ICandidateService {
     void setCandidateRequestDates(Integer candidateId, List<LocalDateTime> requestDates);
 
     List<RequestedInterviewDates> getRequestedDatesByCandidate(Integer candidateId);
+
+    void scheduleInterviewForCandidate(Integer candidateId);
 }
