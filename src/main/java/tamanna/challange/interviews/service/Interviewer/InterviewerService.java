@@ -2,10 +2,14 @@ package tamanna.challange.interviews.service.Interviewer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tamanna.challange.interviews.model.Interviewer;
-import tamanna.challange.interviews.model.Slot;
+import tamanna.challange.interviews.exception.EntityNotFoundException;
+import tamanna.challange.interviews.exception.NotValidDateTimeSlotException;
+import tamanna.challange.interviews.model.AvailableInterviewDates;
+import tamanna.challange.interviews.model.Person.Interviewer;
+import tamanna.challange.interviews.repository.AvailableInterviewDatesRepository;
 import tamanna.challange.interviews.repository.InterviewerRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +18,9 @@ public class InterviewerService implements IInterviewerService{
 
     @Autowired
     private InterviewerRepository interviewerRepository;
+    
+    @Autowired
+    private AvailableInterviewDatesRepository availableInterviewDatesRepository;
 
     @Override
     public List<Interviewer> getAll() {
@@ -22,7 +29,13 @@ public class InterviewerService implements IInterviewerService{
 
     @Override
     public Optional<Interviewer> getInterviewerById(Integer interviewerId) {
-        return interviewerRepository.findById(interviewerId);
+
+        Optional<Interviewer> interviewer =  interviewerRepository.findById(interviewerId);
+        if(!interviewer.isPresent())
+        {
+            throw new EntityNotFoundException("Not found Interviewer with Id:"+interviewerId);
+        }
+        return interviewer;
     }
 
     @Override
@@ -31,13 +44,28 @@ public class InterviewerService implements IInterviewerService{
     }
 
     @Override
-    public void setInterviewerSlot(Integer interviewerId) {
-        interviewerRepository.setInterviewerSlot(interviewerId);
+    public void setInterviewerAvailableDates(Integer interviewerId, List<LocalDateTime> availableDates) {
+        for (LocalDateTime date: availableDates) {
+            if(date.isAfter(LocalDateTime.now()))
+            {
+                if(date.getMinute()==0) {
+                    AvailableInterviewDates aid = new AvailableInterviewDates();
+                    aid.setInterviewer(getInterviewerById(interviewerId).get());
+                    aid.setAvailableDate(date);
+                    availableInterviewDatesRepository.save(aid);
+                }else
+                {
+                    throw  new NotValidDateTimeSlotException("Wrong Time Input!\n Interviews can only be made by the hour. Please enter minutes to 00!");
+                }
+            }else
+            {
+                throw  new NotValidDateTimeSlotException("Wrong Date Input!\n The request slot must be in the future!");
+            }
+        }
     }
 
-    @Override
-    public List<Slot> getAvailableSlots(Integer interviewerId) {
-        return interviewerRepository.getAvailableSlotsByInterviewer(interviewerId);
+    public List<AvailableInterviewDates> getAvailableDatesByInterviewer(Integer interviewerId) {
+        return availableInterviewDatesRepository.getAvailableDatesByInterviewer(interviewerId);
     }
 
 }

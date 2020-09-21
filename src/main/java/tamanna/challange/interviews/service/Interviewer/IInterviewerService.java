@@ -1,8 +1,9 @@
 package tamanna.challange.interviews.service.Interviewer;
 
-import tamanna.challange.interviews.model.Interviewer;
-import tamanna.challange.interviews.model.Slot;
+import tamanna.challange.interviews.model.AvailableInterviewDates;
+import tamanna.challange.interviews.model.Person.Interviewer;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +13,9 @@ public interface IInterviewerService {
 
     Optional<Interviewer> getInterviewerById(Integer interviewerId);
 
-    List<Slot>getAvailableSlots(Integer interviewerId);
+    void setInterviewerAvailableDates(Integer interviewerId, List<LocalDateTime> availableDates);
 
     void insertInterviewer(Interviewer interviewers);
 
-    void setInterviewerSlot(Integer interviewerId);
+    List<AvailableInterviewDates> getAvailableDatesByInterviewer(Integer interviewerId);
 }

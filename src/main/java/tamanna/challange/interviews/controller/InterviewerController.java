@@ -1,15 +1,14 @@
 package tamanna.challange.interviews.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import tamanna.challange.interviews.model.Interviewer;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
+import tamanna.challange.interviews.model.AvailableInterviewDates;
+import tamanna.challange.interviews.model.Person.Interviewer;
 import tamanna.challange.interviews.service.Interviewer.IInterviewerService;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class InterviewerController {
@@ -35,10 +34,17 @@ public class InterviewerController {
         System.out.println("Interviewer Saved Successfully");
     }
 
-    @PostMapping("/api/interviewers/{id}/setSlot")
-    public void setInterviewerSlot(@PathVariable(name="interviewerId") Integer interviewerId){
-        iInterviewerService.getAvailableSlots(interviewerId);
+    @PostMapping("/api/interviewers/{interviewerId}/setAvailableDates")
+    public void setInterviewerAvailableDates(@PathVariable(name="interviewerId") Integer interviewerId,
+                                   @RequestParam("availableDates")
+                                   @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm") List<LocalDateTime> availableDates){
+        iInterviewerService.setInterviewerAvailableDates(interviewerId,availableDates);
         System.out.println("Set slot Ok");
+    }
+
+    @GetMapping("/api/interviewers/{interviewerId}/availableDates")
+    public List<AvailableInterviewDates> getAvailableDatesByInterviewer (@PathVariable(name="interviewerId") Integer interviewerId){
+        return iInterviewerService.getAvailableDatesByInterviewer(interviewerId);
     }
 
 }
