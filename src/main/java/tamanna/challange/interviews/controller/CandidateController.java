@@ -1,15 +1,14 @@
 package tamanna.challange.interviews.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import tamanna.challange.interviews.model.Candidate;
-import tamanna.challange.interviews.model.Interviewer;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
+import tamanna.challange.interviews.model.AvailableInterviewDates;
+import tamanna.challange.interviews.model.Person.Candidate;
+import tamanna.challange.interviews.model.Schedule.RequestedInterviewDates;
 import tamanna.challange.interviews.service.Candidate.ICandidateService;
-import tamanna.challange.interviews.service.Interviewer.IInterviewerService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,9 +37,17 @@ public class CandidateController {
         System.out.println("Candidate Saved Successfully");
     }
 
-    /*@PostMapping("/api/interviewers/{id}/requestSlot")
-    public void setCandidateRequestSlot(@PathVariable(name="candidateId") Integer candidateId){
-        iCandidateService.getCandidateRequestSlot(candidateId);
-    }*/
+    @PostMapping("/api/candidates/{candidateId}/requestDates")
+    public void setCandidateRequestDates(@PathVariable(name="candidateId") Integer candidateId,
+                                        @RequestParam("requestDate")
+                                        @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm") List<LocalDateTime> requestDates){
+        iCandidateService.setCandidateRequestDates(candidateId , requestDates);
+    }
+
+    @GetMapping("/api/candidates/{candidateId}/requestedDates")
+    public List<RequestedInterviewDates> getRequestedInterviewDatesByCandidate (@PathVariable(name="candidateId") Integer candidateId){
+        return iCandidateService.getRequestedDatesByCandidate(candidateId);
+    }
+
 
 }

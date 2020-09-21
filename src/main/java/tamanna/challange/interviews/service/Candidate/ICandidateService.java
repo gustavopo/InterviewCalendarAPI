@@ -1,6 +1,9 @@
 package tamanna.challange.interviews.service.Candidate;
 
-import tamanna.challange.interviews.model.Candidate;
+import tamanna.challange.interviews.model.Person.Candidate;
+import tamanna.challange.interviews.model.Schedule.RequestedInterviewDates;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,5 +14,7 @@ public interface ICandidateService {
 
     void insertCandidates(Candidate candidates);
 
-    //void getCandidateRequestSlot(Integer candidateId);
+    void setCandidateRequestDates(Integer candidateId, List<LocalDateTime> requestDates);
+
+    List<RequestedInterviewDates> getRequestedDatesByCandidate(Integer candidateId);
 }
