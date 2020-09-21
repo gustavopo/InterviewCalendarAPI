@@ -24,9 +24,9 @@ public class InterviewerController {
         return iInterviewerService.getAll();
     }
 
-    @GetMapping("/api/interviewers/{id}")
-    public Optional<Interviewer> getInterviewerById(@PathVariable(name="interviewerId") Integer interviewerId){
-        return iInterviewerService.getInterviewerById(interviewerId);
+    @GetMapping("/api/interviewers/{interviewerId}")
+    public Interviewer getInterviewerById(@PathVariable(name="interviewerId") Integer interviewerId){
+        return iInterviewerService.getInterviewerById(interviewerId).get();
     }
 
     @PostMapping("/api/interviewers")

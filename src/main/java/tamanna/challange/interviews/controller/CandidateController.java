@@ -27,7 +27,7 @@ public class CandidateController {
         return iCandidateService.getAll();
     }
 
-    @GetMapping("/api/candidate/{id}")
+    @GetMapping("/api/candidates/{candidateId}")
     public Optional<Candidate> getCandidateById(@PathVariable(name="candidateId") Integer candidateId){
         return iCandidateService.getCandidateById(candidateId);
     }
