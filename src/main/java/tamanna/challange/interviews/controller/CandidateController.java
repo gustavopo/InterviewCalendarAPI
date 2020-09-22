@@ -28,7 +28,7 @@ public class CandidateController {
 
     @GetMapping("/api/candidates/{candidateId}")
     @ApiOperation(value = "Get a Candidate by Id")
-    public Optional<Candidate> getCandidateById(@PathVariable(name="candidateId") Long candidateId){
+    public Candidate getCandidateById(@PathVariable(name="candidateId") Long candidateId){
         return iCandidateService.getCandidateById(candidateId);
     }
 

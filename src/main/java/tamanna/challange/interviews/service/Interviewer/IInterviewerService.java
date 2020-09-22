@@ -5,13 +5,12 @@ import tamanna.challange.interviews.model.Person.Interviewer;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 public interface IInterviewerService {
 
     List<Interviewer> getAll();
 
-    Optional<Interviewer> getInterviewerById(Long interviewerId);
+    Interviewer getInterviewerById(Long interviewerId);
 
     void setInterviewerAvailableDates(Long interviewerId, List<LocalDateTime> availableDates);
 

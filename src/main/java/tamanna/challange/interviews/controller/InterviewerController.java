@@ -28,7 +28,7 @@ public class InterviewerController {
     @GetMapping("/api/interviewers/{interviewerId}")
     @ApiOperation(value = "Get an Interviewer by Id")
     public Interviewer getInterviewerById(@PathVariable(name="interviewerId") Long interviewerId){
-        return iInterviewerService.getInterviewerById(interviewerId).get();
+        return iInterviewerService.getInterviewerById(interviewerId);
     }
 
     @PostMapping("/api/interviewers")

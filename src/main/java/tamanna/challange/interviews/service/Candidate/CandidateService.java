@@ -28,13 +28,13 @@ public class CandidateService implements ICandidateService {
     }
 
     @Override
-    public Optional<Candidate> getCandidateById(Long candidateId) {
+    public Candidate getCandidateById(Long candidateId) {
         Optional<Candidate> candidate = candidateRepository.findById(candidateId);
-        if(!candidate.isPresent())
+        if(candidate.isEmpty())
         {
             throw new EntityNotFoundException("Not found Candidate with Id: "+candidateId);
         }
-        return candidate;
+        return candidate.get();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class CandidateService implements ICandidateService {
             {
                 if(date.getMinute()==0) {
                     RequestedInterviewDates rid = new RequestedInterviewDates();
-                    rid.setCandidate(getCandidateById(candidateId).get());
+                    rid.setCandidate(getCandidateById(candidateId));
                     rid.setRequestedDate(date);
                     requestedInterviewDatesRepository.save(rid);
                 }else
@@ -67,4 +67,7 @@ public class CandidateService implements ICandidateService {
         return requestedInterviewDatesRepository.getRequestedDatesByCandidate(candidateId);
     }
 
+    public void setCandidateRepository(CandidateRepository candidateRepository) {
+        this.candidateRepository=candidateRepository;
+    }
 }

@@ -28,14 +28,14 @@ public class InterviewerService implements IInterviewerService{
     }
 
     @Override
-    public Optional<Interviewer> getInterviewerById(Long interviewerId) {
+    public Interviewer getInterviewerById(Long interviewerId) {
 
         Optional<Interviewer> interviewer =  interviewerRepository.findById(interviewerId);
-        if(!interviewer.isPresent())
+        if(interviewer.isEmpty())
         {
             throw new EntityNotFoundException("Not found Interviewer with Id:"+interviewerId);
         }
-        return interviewer;
+        return interviewer.get();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class InterviewerService implements IInterviewerService{
             {
                 if(date.getMinute()==0) {
                     AvailableInterviewDates aid = new AvailableInterviewDates();
-                    aid.setInterviewer(getInterviewerById(interviewerId).get());
+                    aid.setInterviewer(getInterviewerById(interviewerId));
                     aid.setAvailableDate(date);
                     availableInterviewDatesRepository.save(aid);
                 }else
