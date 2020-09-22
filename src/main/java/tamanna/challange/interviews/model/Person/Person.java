@@ -1,5 +1,6 @@
 package tamanna.challange.interviews.model.Person;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import javax.persistence.GeneratedValue;
