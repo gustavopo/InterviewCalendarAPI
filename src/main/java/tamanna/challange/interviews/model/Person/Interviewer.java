@@ -23,4 +23,8 @@ public class Interviewer extends Person{
     @ApiModelProperty(notes ="List of Available Interviewer Dates ")
     private List<AvailableInterviewDates> availableDates;
 
+    public Interviewer(Long l, String name) {
+        this.setId(l);
+        this.setName(name);
+    }
 }

@@ -12,7 +12,8 @@ public interface CandidateRepository extends JpaRepository<Candidate,Long> {
     @Override
     public List<Candidate> findAll() ;
 
-    public Optional<Candidate> getById(Long Long) ;
+    public Optional<Candidate> findById(Long Long) ;
 
-    //void getCandidateRequestSlot(Long candidateId);
+    public Optional<Candidate> findByName(String name) ;
+
 }
