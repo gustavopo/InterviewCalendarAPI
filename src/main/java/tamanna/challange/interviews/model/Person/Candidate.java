@@ -24,4 +24,9 @@ public class Candidate extends Person{
     @OneToMany(mappedBy = "candidate")
     @ApiModelProperty(notes ="List of dates requested by the Candidate")
     private List<RequestedInterviewDates> requestedDates;
+
+    public Candidate(long id, String name) {
+        this.setId(id);
+        this.setName(name);
+    }
 }
