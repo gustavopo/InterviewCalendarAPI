@@ -28,7 +28,7 @@ public class CandidateController {
 
     @GetMapping("/api/candidates/{candidateId}")
     @ApiOperation(value = "Get a Candidate by Id")
-    public Optional<Candidate> getCandidateById(@PathVariable(name="candidateId") Integer candidateId){
+    public Optional<Candidate> getCandidateById(@PathVariable(name="candidateId") Long candidateId){
         return iCandidateService.getCandidateById(candidateId);
     }
 
@@ -41,7 +41,7 @@ public class CandidateController {
 
     @PostMapping("/api/candidates/{candidateId}/requestDates")
     @ApiOperation(value = "Set Candidate Request Interview Dates")
-    public void setCandidateRequestDates(@PathVariable(name="candidateId") Integer candidateId,
+    public void setCandidateRequestDates(@PathVariable(name="candidateId") Long candidateId,
                                         @RequestParam("requestDate")
                                         @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm") List<LocalDateTime> requestDates){
         iCandidateService.setCandidateRequestDates(candidateId , requestDates);
@@ -49,7 +49,7 @@ public class CandidateController {
 
     @GetMapping("/api/candidates/{candidateId}/requestedDates")
     @ApiOperation(value = "Get requested Interviews by Candidate ID")
-    public List<RequestedInterviewDates> getRequestedInterviewDatesByCandidate (@PathVariable(name="candidateId") Integer candidateId){
+    public List<RequestedInterviewDates> getRequestedInterviewDatesByCandidate (@PathVariable(name="candidateId") Long candidateId){
         return iCandidateService.getRequestedDatesByCandidate(candidateId);
     }
 

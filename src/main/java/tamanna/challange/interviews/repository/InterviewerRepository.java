@@ -8,7 +8,7 @@ import tamanna.challange.interviews.model.Person.Interviewer;
 import java.util.List;
 
 @Repository
-public interface InterviewerRepository extends JpaRepository<Interviewer,Integer> {
+public interface InterviewerRepository extends JpaRepository<Interviewer,Long> {
     @Override
     public List<Interviewer> findAll() ;
 }

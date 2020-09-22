@@ -17,7 +17,7 @@ public class AvailableInterviewDates {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name="interviewer_id")

@@ -28,7 +28,7 @@ public class InterviewerService implements IInterviewerService{
     }
 
     @Override
-    public Optional<Interviewer> getInterviewerById(Integer interviewerId) {
+    public Optional<Interviewer> getInterviewerById(Long interviewerId) {
 
         Optional<Interviewer> interviewer =  interviewerRepository.findById(interviewerId);
         if(!interviewer.isPresent())
@@ -44,7 +44,7 @@ public class InterviewerService implements IInterviewerService{
     }
 
     @Override
-    public void setInterviewerAvailableDates(Integer interviewerId, List<LocalDateTime> availableDates) {
+    public void setInterviewerAvailableDates(Long interviewerId, List<LocalDateTime> availableDates) {
         for (LocalDateTime date: availableDates) {
             if(date.isAfter(LocalDateTime.now()))
             {
@@ -64,7 +64,7 @@ public class InterviewerService implements IInterviewerService{
         }
     }
 
-    public List<AvailableInterviewDates> getAvailableDatesByInterviewer(Integer interviewerId) {
+    public List<AvailableInterviewDates> getAvailableDatesByInterviewer(Long interviewerId) {
         return availableInterviewDatesRepository.getAvailableDatesByInterviewer(interviewerId);
     }
 

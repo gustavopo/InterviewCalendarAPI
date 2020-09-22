@@ -27,7 +27,7 @@ public class InterviewerController {
 
     @GetMapping("/api/interviewers/{interviewerId}")
     @ApiOperation(value = "Get an Interviewer by Id")
-    public Interviewer getInterviewerById(@PathVariable(name="interviewerId") Integer interviewerId){
+    public Interviewer getInterviewerById(@PathVariable(name="interviewerId") Long interviewerId){
         return iInterviewerService.getInterviewerById(interviewerId).get();
     }
 
@@ -40,7 +40,7 @@ public class InterviewerController {
 
     @PostMapping("/api/interviewers/{interviewerId}/setAvailableDates")
     @ApiOperation(value = "Set Interviewer Available Interview Dates")
-    public void setInterviewerAvailableDates(@PathVariable(name="interviewerId") Integer interviewerId,
+    public void setInterviewerAvailableDates(@PathVariable(name="interviewerId") Long interviewerId,
                                    @RequestParam("availableDates")
                                    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm") List<LocalDateTime> availableDates){
         iInterviewerService.setInterviewerAvailableDates(interviewerId,availableDates);
@@ -49,7 +49,7 @@ public class InterviewerController {
 
     @GetMapping("/api/interviewers/{interviewerId}/availableDates")
     @ApiOperation(value = "Get available Interviews by Interviewer ID")
-    public List<AvailableInterviewDates> getAvailableDatesByInterviewer (@PathVariable(name="interviewerId") Integer interviewerId){
+    public List<AvailableInterviewDates> getAvailableDatesByInterviewer (@PathVariable(name="interviewerId") Long interviewerId){
         return iInterviewerService.getAvailableDatesByInterviewer(interviewerId);
     }
 

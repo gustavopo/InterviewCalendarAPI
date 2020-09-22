@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CandidateRepository extends JpaRepository<Candidate,Integer> {
+public interface CandidateRepository extends JpaRepository<Candidate,Long> {
     @Override
     public List<Candidate> findAll() ;
 
-    public Optional<Candidate> getById(Integer integer) ;
+    public Optional<Candidate> getById(Long Long) ;
 
-    //void getCandidateRequestSlot(Integer candidateId);
+    //void getCandidateRequestSlot(Long candidateId);
 }

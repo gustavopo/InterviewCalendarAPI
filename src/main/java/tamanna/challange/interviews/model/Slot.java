@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Slot {
     @Id
     @GeneratedValue
-    private Integer slotId;
+    private Long slotId;
     @ApiModelProperty(notes ="Interview Date")
     private LocalDateTime interviewDate;
 

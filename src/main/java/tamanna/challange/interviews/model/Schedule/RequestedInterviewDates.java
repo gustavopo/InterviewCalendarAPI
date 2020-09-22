@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class RequestedInterviewDates {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name="candidate_id")

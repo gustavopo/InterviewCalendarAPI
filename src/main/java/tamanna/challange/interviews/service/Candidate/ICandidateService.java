@@ -10,11 +10,11 @@ import java.util.Optional;
 public interface ICandidateService {
     List<Candidate> getAll();
 
-    Optional<Candidate> getCandidateById(Integer candidateId);
+    Optional<Candidate> getCandidateById(Long candidateId);
 
     void insertCandidates(Candidate candidates);
 
-    void setCandidateRequestDates(Integer candidateId, List<LocalDateTime> requestDates);
+    void setCandidateRequestDates(Long candidateId, List<LocalDateTime> requestDates);
 
-    List<RequestedInterviewDates> getRequestedDatesByCandidate(Integer candidateId);
+    List<RequestedInterviewDates> getRequestedDatesByCandidate(Long candidateId);
 }

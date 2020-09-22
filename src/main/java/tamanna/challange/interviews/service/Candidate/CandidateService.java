@@ -28,7 +28,7 @@ public class CandidateService implements ICandidateService {
     }
 
     @Override
-    public Optional<Candidate> getCandidateById(Integer candidateId) {
+    public Optional<Candidate> getCandidateById(Long candidateId) {
         Optional<Candidate> candidate = candidateRepository.findById(candidateId);
         if(!candidate.isPresent())
         {
@@ -43,7 +43,7 @@ public class CandidateService implements ICandidateService {
     }
 
     @Override
-    public void setCandidateRequestDates(Integer candidateId, List<LocalDateTime> requestDates) {
+    public void setCandidateRequestDates(Long candidateId, List<LocalDateTime> requestDates) {
         for (LocalDateTime date: requestDates) {
             if(date.isAfter(LocalDateTime.now()))
             {
@@ -63,7 +63,7 @@ public class CandidateService implements ICandidateService {
         }
     }
 
-    public List<RequestedInterviewDates> getRequestedDatesByCandidate(Integer candidateId) {
+    public List<RequestedInterviewDates> getRequestedDatesByCandidate(Long candidateId) {
         return requestedInterviewDatesRepository.getRequestedDatesByCandidate(candidateId);
     }
 
