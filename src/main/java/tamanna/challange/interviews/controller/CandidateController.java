@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import tamanna.challange.interviews.model.Person.Candidate;
 import tamanna.challange.interviews.model.Schedule.RequestedInterviewDates;
+import tamanna.challange.interviews.model.Slot;
 import tamanna.challange.interviews.service.Candidate.ICandidateService;
 
 import java.time.LocalDateTime;
@@ -53,5 +54,8 @@ public class CandidateController {
         iCandidateService.scheduleInterviewForCandidate(candidateId);
     }
 
-
+    @PutMapping("/api/candidates/{candidateId}/updateInterview")
+    public void rescheduleInterviewForCandidate (@PathVariable(name="candidateId") Integer candidateId, @RequestBody Slot slot){
+        iCandidateService.rescheduleInterviewForCandidate(candidateId,slot);
+    }
 }

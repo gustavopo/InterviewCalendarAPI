@@ -2,6 +2,7 @@ package tamanna.challange.interviews.service.Candidate;
 
 import tamanna.challange.interviews.model.Person.Candidate;
 import tamanna.challange.interviews.model.Schedule.RequestedInterviewDates;
+import tamanna.challange.interviews.model.Slot;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,4 +20,6 @@ public interface ICandidateService {
     List<RequestedInterviewDates> getRequestedDatesByCandidate(Integer candidateId);
 
     void scheduleInterviewForCandidate(Integer candidateId);
+
+    void rescheduleInterviewForCandidate(Integer candidateId, Slot slot);
 }

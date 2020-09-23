@@ -107,4 +107,12 @@ public class CandidateService implements ICandidateService {
 
     }
 
+    @Override
+    public void rescheduleInterviewForCandidate(Integer candidateId, Slot slot) {
+        Slot s = slotRepository.findByCandidateId(candidateId);
+        s.setInterviewer(slot.getInterviewer());
+        s.setInterviewDate(slot.getInterviewDate());
+        slotRepository.save(slot);
+    }
+
 }
