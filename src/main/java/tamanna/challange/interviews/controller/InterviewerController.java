@@ -4,9 +4,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tamanna.challange.interviews.model.Schedule.AvailableInterviewDates;
 import tamanna.challange.interviews.model.Person.Interviewer;
 import tamanna.challange.interviews.service.Interviewer.IInterviewerService;
 
@@ -21,36 +22,36 @@ public class InterviewerController {
 
     @GetMapping("/api/interviewers")
     @ApiOperation(value = "Get all Interviewers")
-    public List<Interviewer> getInterviewers(){
-        return iInterviewerService.getAll();
+    public ResponseEntity<Object> getInterviewers(){
+        return new ResponseEntity<>(iInterviewerService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/api/interviewers/{interviewerId}")
     @ApiOperation(value = "Get an Interviewer by Id")
-    public Interviewer getInterviewerById(@PathVariable(name="interviewerId") Long interviewerId){
-        return iInterviewerService.getInterviewerById(interviewerId);
+    public ResponseEntity<Object> getInterviewerById(@PathVariable(name="interviewerId") Long interviewerId){
+        return new ResponseEntity<>( iInterviewerService.getInterviewerById(interviewerId),HttpStatus.OK);
     }
 
     @PostMapping("/api/interviewers")
     @ApiOperation(value = "Insert new Interviewer")
-    public void insertInterviewer(Interviewer interviewers){
+    public ResponseEntity<Object> insertInterviewer(Interviewer interviewers){
         iInterviewerService.insertInterviewer(interviewers);
-        System.out.println("Interviewer Saved Successfully");
+        return new ResponseEntity<>("A new Interviewer is created successfully!", HttpStatus.CREATED);
     }
 
     @PostMapping("/api/interviewers/{interviewerId}/setAvailableDates")
     @ApiOperation(value = "Set Interviewer Available Interview Dates")
-    public void setInterviewerAvailableDates(@PathVariable(name="interviewerId") Long interviewerId,
+    public ResponseEntity<Object> setInterviewerAvailableDates(@PathVariable(name="interviewerId") Long interviewerId,
                                    @RequestParam("availableDates")
                                    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm") List<LocalDateTime> availableDates){
         iInterviewerService.setInterviewerAvailableDates(interviewerId,availableDates);
-        System.out.println("Set slot Ok");
+        return new ResponseEntity<>("Available Date registered successsfully for interviewer with Id "+interviewerId,HttpStatus.CREATED);
     }
 
     @GetMapping("/api/interviewers/{interviewerId}/availableDates")
     @ApiOperation(value = "Get available Interviews by Interviewer ID")
-    public List<AvailableInterviewDates> getAvailableDatesByInterviewer (@PathVariable(name="interviewerId") Long interviewerId){
-        return iInterviewerService.getAvailableDatesByInterviewer(interviewerId);
+    public ResponseEntity<Object> getAvailableDatesByInterviewer (@PathVariable(name="interviewerId") Long interviewerId){
+        return new ResponseEntity<>(iInterviewerService.getAvailableDatesByInterviewer(interviewerId), HttpStatus.OK);
     }
 
 }

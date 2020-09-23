@@ -4,7 +4,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tamanna.challange.interviews.model.Person.Candidate;
 import tamanna.challange.interviews.model.Schedule.RequestedInterviewDates;
@@ -13,7 +15,6 @@ import tamanna.challange.interviews.service.Candidate.ICandidateService;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @Api(description = "Candidate Endpoint", value = "CandidateController" , produces = MediaType.APPLICATION_JSON_VALUE)
@@ -23,44 +24,50 @@ public class CandidateController {
 
     @GetMapping("/api/candidates")
     @ApiOperation(value = "Get all Candidates")
-    public List<Candidate> getCandidates(){
-        return iCandidateService.getAll();
+    public ResponseEntity<Object> getCandidates(){
+        return new ResponseEntity<>(iCandidateService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/api/candidates/{candidateId}")
     @ApiOperation(value = "Get a Candidate by Id")
-    public Candidate getCandidateById(@PathVariable(name="candidateId") Long candidateId){
-        return iCandidateService.getCandidateById(candidateId);
+    public ResponseEntity<Object> getCandidateById(@PathVariable(name="candidateId") Long candidateId){
+        return new ResponseEntity<>(iCandidateService.getCandidateById(candidateId), HttpStatus.OK);
     }
 
     @PostMapping("/api/candidates")
     @ApiOperation(value = "Insert a new Candidate")
-    public void insertCandidate(Candidate candidates){
+    public ResponseEntity<Object> insertCandidate(Candidate candidates){
         iCandidateService.insertCandidates(candidates);
-        System.out.println("Candidate Saved Successfully");
+        return new ResponseEntity<>("A new Candidate is created successfully!", HttpStatus.CREATED);
+
     }
 
     @PostMapping("/api/candidates/{candidateId}/requestDates")
     @ApiOperation(value = "Set Candidate Request Interview Dates")
-    public void setCandidateRequestDates(@PathVariable(name="candidateId") Long candidateId,
+    public ResponseEntity<Object> setCandidateRequestDates(@PathVariable(name="candidateId") Long candidateId,
                                         @RequestParam("requestDate")
                                         @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm") List<LocalDateTime> requestDates){
         iCandidateService.setCandidateRequestDates(candidateId , requestDates);
+        return new ResponseEntity<>("Interview Date requested successsfully for candidate with Id "+candidateId,HttpStatus.CREATED);
     }
 
     @GetMapping("/api/candidates/{candidateId}/requestedDates")
     @ApiOperation(value = "Get requested Interviews by Candidate ID")
-    public List<RequestedInterviewDates> getRequestedInterviewDatesByCandidate (@PathVariable(name="candidateId") Long candidateId){
-        return iCandidateService.getRequestedDatesByCandidate(candidateId);
+    public ResponseEntity<Object>  getRequestedInterviewDatesByCandidate (@PathVariable(name="candidateId") Long candidateId){
+        return new ResponseEntity<>(iCandidateService.getRequestedDatesByCandidate(candidateId),HttpStatus.OK);
     }
 
     @PostMapping("/api/candidates/{candidateId}/scheduleInterview")
-    public void scheduleInterviewForCandidate (@PathVariable(name="candidateId") Long candidateId){
+    @ApiOperation(value = "Schedule Interview by Candidate ID")
+    public ResponseEntity<Object> scheduleInterviewForCandidate (@PathVariable(name="candidateId") Long candidateId){
         iCandidateService.scheduleInterviewForCandidate(candidateId);
+        return new ResponseEntity<>("Interview Slot is created successsfully for candidate with Id "+candidateId, HttpStatus.OK);
     }
 
     @PutMapping("/api/candidates/{candidateId}/updateInterview")
-    public void rescheduleInterviewForCandidate (@PathVariable(name="candidateId") Long candidateId, @RequestBody Slot slot){
+    @ApiOperation(value = "ReSchedule Interview by Candidate ID")
+    public ResponseEntity<Object> rescheduleInterviewForCandidate (@PathVariable(name="candidateId") Long candidateId, @RequestBody Slot slot){
         iCandidateService.rescheduleInterviewForCandidate(candidateId,slot);
+        return new ResponseEntity<>("Interview Slot is updated successsfully for candidate with Id "+candidateId, HttpStatus.OK);
     }
 }
