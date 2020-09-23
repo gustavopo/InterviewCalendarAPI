@@ -86,23 +86,24 @@ public class CandidateService implements ICandidateService {
         List<AvailableInterviewDates> availableDatesBetween= new LinkedList<>();
 
         for (RequestedInterviewDates requestedInterview : requestedInterviewDatesList) {
-            availableDatesBetween.addAll(availableInterviewDatesRepository.checkAvailabilityForDate(requestedInterview.getRequestedDate()));
+            if(requestedInterview.getRequestedDate().isAfter(LocalDateTime.now())) {
+                availableDatesBetween.addAll(availableInterviewDatesRepository.checkAvailabilityForDate(requestedInterview.getRequestedDate()));
+            }
         }
 
         if(!availableDatesBetween.isEmpty())
         {
             //create slot with first interviewer found
-            AvailableInterviewDates a = availableDatesBetween.get(0);
-            Interviewer interviewer = a.getInterviewer();
+            AvailableInterviewDates availableDate = availableDatesBetween.get(0);
+            Interviewer interviewer = availableDate.getInterviewer();
             Slot interviewSlot=new Slot();
             interviewSlot.setCandidate(candidate);
-            interviewSlot.setInterviewDate(a.getAvailableDate());
+            interviewSlot.setInterviewDate(availableDate.getAvailableDate());
             interviewSlot.setInterviewer(interviewer);
             slotRepository.save(interviewSlot);
-
-        }/*else{
+        }else{
             throw new EntityNotFoundException("No compatible dates were found to schedule interview for candidate " + candidateId);
-        }*/
+        }
 
     }
 
