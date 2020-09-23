@@ -8,11 +8,11 @@ import tamanna.challange.interviews.model.Person.Candidate;
 import tamanna.challange.interviews.model.Person.Interviewer;
 import tamanna.challange.interviews.model.Schedule.AvailableInterviewDates;
 import tamanna.challange.interviews.model.Schedule.RequestedInterviewDates;
-import tamanna.challange.interviews.model.Slot;
+import tamanna.challange.interviews.model.Interview;
 import tamanna.challange.interviews.repository.AvailableInterviewDatesRepository;
 import tamanna.challange.interviews.repository.CandidateRepository;
 import tamanna.challange.interviews.repository.RequestedInterviewDatesRepository;
-import tamanna.challange.interviews.repository.SlotRepository;
+import tamanna.challange.interviews.repository.InterviewRepository;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -31,7 +31,7 @@ public class CandidateService implements ICandidateService {
     @Autowired
     private AvailableInterviewDatesRepository availableInterviewDatesRepository;
     @Autowired
-    private SlotRepository slotRepository;
+    private InterviewRepository interviewRepository;
 
     @Override
     public List<Candidate> getAll() {
@@ -89,17 +89,20 @@ public class CandidateService implements ICandidateService {
             if(requestedInterview.getRequestedDate().isAfter(LocalDateTime.now())) {
                 availableDatesBetween.addAll(availableInterviewDatesRepository.checkAvailabilityForDate(requestedInterview.getRequestedDate()));
             }
+            else{
+                throw  new NotValidDateTimeSlotException("Wrong Date Input!\n The interview date must be in the future!");
+            }
         }
         if(!availableDatesBetween.isEmpty())
         {
             //create slot with first interviewer found
             AvailableInterviewDates availableDate = availableDatesBetween.get(0);
             Interviewer interviewer = availableDate.getInterviewer();
-            Slot interviewSlot=new Slot();
-            interviewSlot.setCandidate(candidate);
-            interviewSlot.setInterviewDate(availableDate.getAvailableDate());
-            interviewSlot.setInterviewer(interviewer);
-            slotRepository.save(interviewSlot);
+            Interview interviewInterview =new Interview();
+            interviewInterview.setCandidate(candidate);
+            interviewInterview.setInterviewDate(availableDate.getAvailableDate());
+            interviewInterview.setInterviewer(interviewer);
+            interviewRepository.save(interviewInterview);
         }else{
             throw new EntityNotFoundException("No compatible dates were found to schedule interview for candidate " + candidateId);
         }
@@ -107,11 +110,11 @@ public class CandidateService implements ICandidateService {
     }
 
     @Override
-    public void rescheduleInterviewForCandidate(Long candidateId, Slot slot) {
-        Slot s = slotRepository.findByCandidateId(candidateId);
-        s.setInterviewer(slot.getInterviewer());
-        s.setInterviewDate(slot.getInterviewDate());
-        slotRepository.save(slot);
+    public void rescheduleInterviewForCandidate(Long candidateId, Interview interview) {
+        Interview s = interviewRepository.findByCandidateId(candidateId);
+        s.setInterviewer(interview.getInterviewer());
+        s.setInterviewDate(interview.getInterviewDate());
+        interviewRepository.save(interview);
     }
 
     public void setCandidateRepository(CandidateRepository candidateRepository) {

@@ -9,8 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tamanna.challange.interviews.model.Person.Candidate;
-import tamanna.challange.interviews.model.Schedule.RequestedInterviewDates;
-import tamanna.challange.interviews.model.Slot;
+import tamanna.challange.interviews.model.Interview;
 import tamanna.challange.interviews.service.Candidate.ICandidateService;
 
 import java.time.LocalDateTime;
@@ -66,8 +65,8 @@ public class CandidateController {
 
     @PutMapping("/api/candidates/{candidateId}/updateInterview")
     @ApiOperation(value = "ReSchedule Interview by Candidate ID")
-    public ResponseEntity<Object> rescheduleInterviewForCandidate (@PathVariable(name="candidateId") Long candidateId, @RequestBody Slot slot){
-        iCandidateService.rescheduleInterviewForCandidate(candidateId,slot);
+    public ResponseEntity<Object> rescheduleInterviewForCandidate (@PathVariable(name="candidateId") Long candidateId, @RequestBody Interview interview){
+        iCandidateService.rescheduleInterviewForCandidate(candidateId, interview);
         return new ResponseEntity<>("Interview Slot is updated successsfully for candidate with Id "+candidateId, HttpStatus.OK);
     }
 }

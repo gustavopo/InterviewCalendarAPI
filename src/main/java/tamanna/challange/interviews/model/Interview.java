@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @ApiModel(description = "Entity that represents an Interview Slot")
-public class Slot {
+public class Interview {
     @Id
     @GeneratedValue
-    private Long slotId;
+    private Long interview;
     @ApiModelProperty(notes ="Interview Date")
     private LocalDateTime interviewDate;
 

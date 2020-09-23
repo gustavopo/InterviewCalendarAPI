@@ -2,7 +2,7 @@ package tamanna.challange.interviews.service.Candidate;
 
 import tamanna.challange.interviews.model.Person.Candidate;
 import tamanna.challange.interviews.model.Schedule.RequestedInterviewDates;
-import tamanna.challange.interviews.model.Slot;
+import tamanna.challange.interviews.model.Interview;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,5 +20,5 @@ public interface ICandidateService {
 
     void scheduleInterviewForCandidate(Long candidateId);
 
-    void rescheduleInterviewForCandidate(Long candidateId, Slot slot);
+    void rescheduleInterviewForCandidate(Long candidateId, Interview interview);
 }

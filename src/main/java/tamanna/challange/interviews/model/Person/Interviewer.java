@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import tamanna.challange.interviews.model.Schedule.AvailableInterviewDates;
-import tamanna.challange.interviews.model.Slot;
+import tamanna.challange.interviews.model.Interview;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,7 +17,7 @@ public class Interviewer extends Person{
     @OneToMany(mappedBy = "interviewer")
     @JsonIgnore
     @ApiModelProperty(notes ="Interviewer Interview List")
-    private List<Slot> slot;
+    private List<Interview> interview;
 
     @OneToMany(mappedBy = "interviewer")
     @ApiModelProperty(notes ="List of Available Interviewer Dates ")

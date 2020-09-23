@@ -14,7 +14,7 @@ public interface AvailableInterviewDatesRepository extends JpaRepository<Availab
             @Query(value = "SELECT * FROM AVAILABLE_INTERVIEW_DATES WHERE INTERVIEWER_ID = :interviewerId ", nativeQuery=true )
             List<AvailableInterviewDates> getAvailableDatesByInterviewer(@Param("interviewerId") Long interviewerId);
 
-            @Query(value = "SELECT * FROM AVAILABLE_INTERVIEW_DATES WHERE AVAILABLE_DATE > SYSDATE AND to_char(AVAILABLE_DATE, 'YYYY-MM-DD') = to_char( :requestedDate, 'YYYY-MM-DD')" ,
+            @Query(value = "SELECT * FROM AVAILABLE_INTERVIEW_DATES WHERE to_char(AVAILABLE_DATE, 'YYYY-MM-DD') = to_char( :requestedDate, 'YYYY-MM-DD')" ,
                     nativeQuery = true)
             List<AvailableInterviewDates> checkAvailabilityForDate(@Param("requestedDate") LocalDateTime requestedDate);
 }
