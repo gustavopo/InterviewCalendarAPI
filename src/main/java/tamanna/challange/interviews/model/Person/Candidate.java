@@ -25,6 +25,9 @@ public class Candidate extends Person{
     @ApiModelProperty(notes ="List of dates requested by the Candidate")
     private List<RequestedInterviewDates> requestedDates;
 
+    public Candidate() {
+    }
+
     public Candidate(long id, String name) {
         this.setId(id);
         this.setName(name);

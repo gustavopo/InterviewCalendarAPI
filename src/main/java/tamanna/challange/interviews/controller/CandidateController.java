@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import tamanna.challange.interviews.model.Person.Candidate;
 import tamanna.challange.interviews.model.Schedule.RequestedInterviewDates;
+import tamanna.challange.interviews.model.Slot;
 import tamanna.challange.interviews.service.Candidate.ICandidateService;
 
 import java.time.LocalDateTime;
@@ -53,5 +54,13 @@ public class CandidateController {
         return iCandidateService.getRequestedDatesByCandidate(candidateId);
     }
 
+    @PostMapping("/api/candidates/{candidateId}/scheduleInterview")
+    public void scheduleInterviewForCandidate (@PathVariable(name="candidateId") Long candidateId){
+        iCandidateService.scheduleInterviewForCandidate(candidateId);
+    }
 
+    @PutMapping("/api/candidates/{candidateId}/updateInterview")
+    public void rescheduleInterviewForCandidate (@PathVariable(name="candidateId") Long candidateId, @RequestBody Slot slot){
+        iCandidateService.rescheduleInterviewForCandidate(candidateId,slot);
+    }
 }
